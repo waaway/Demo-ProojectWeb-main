@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  tools {
+    nodejs 'default-node' // ชื่อที่คุณตั้งไว้ใน Jenkins
+  }
+
   environment {
     SNYK_TOKEN = credentials('snyk-token')
     STACKHAWK_API_KEY = credentials('stackhawk-api-key')
@@ -15,7 +19,7 @@ pipeline {
 
     stage('Snyk Security Scan') {
       steps {
-        sh 'snyk test || true'  // ✅ ป้องกัน Jenkins ล้มแม้เจอช่องโหว่
+        sh 'snyk test || true'
       }
     }
 
@@ -34,9 +38,9 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'Deploying to production...'
-        // เพิ่มคำสั่ง deploy จริงของคุณที่นี่
+        echo 'Deploying...'
       }
     }
   }
 }
+ 
